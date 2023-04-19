@@ -1,0 +1,2 @@
+# peludosyco-web
+wordpress
