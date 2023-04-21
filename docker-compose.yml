@@ -3,13 +3,14 @@ version: '3.1'
 services:
   db:
     image: mysql:8.0
-    resources:
-      limits:
-        cpus: "0.3"
-        memory: "256M"
-      reservations:
-        cpus: "0.2"
-        memory: "256M"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: "256M"
+        reservations:
+          cpus: "0.2"
+          memory: "256M"
     restart: always
     environment:
       MYSQL_DATABASE: peludosyco
@@ -24,12 +25,13 @@ services:
       - db
     image: wordpress:6.2
     resources:
-      limits:
-        cpus: "0.7"
-        memory: "768M"
-      reservations:
-        cpus: "0.2"
-        memory: "256M"
+      deploy:
+        limits:
+          cpus: "0.7"
+          memory: "768M"
+        reservations:
+          cpus: "0.2"
+          memory: "256M"
     restart: always
     ports:
       - 8080:80
