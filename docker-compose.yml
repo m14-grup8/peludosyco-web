@@ -1,9 +1,35 @@
 version: '3.1'
 
 services:
-
+  db:
+    image: mysql:8.0
+    resources:
+      limits:
+        cpus: "0.3"
+        memory: "256M"
+      reservations:
+        cpus: "0.2"
+        memory: "256M"
+    restart: always
+    environment:
+      MYSQL_DATABASE: peludosyco
+      MYSQL_USER: umeko-admin
+      MYSQL_PASSWORD: 'Ch4ng3-M3!'
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+      
   wordpress:
+    depends_on:
+      - db
     image: wordpress:6.2
+    resources:
+      limits:
+        cpus: "0.7"
+        memory: "768M"
+      reservations:
+        cpus: "0.2"
+        memory: "256M"
     restart: always
     ports:
       - 8080:80
@@ -15,16 +41,7 @@ services:
     volumes:
       - wordpress:/var/www/html
 
-  db:
-    image: mysql:8.0
-    restart: always
-    environment:
-      MYSQL_DATABASE: peludosyco
-      MYSQL_USER: umeko-admin
-      MYSQL_PASSWORD: 'Ch4ng3-M3!'
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
-    volumes:
-      - db:/var/lib/mysql
+  
 
 volumes:
   wordpress:
